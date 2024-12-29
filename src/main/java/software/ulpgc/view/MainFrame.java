@@ -7,7 +7,7 @@ import javax.swing.*;
 import java.util.List;
 
 public class MainFrame extends JFrame {
-    private final MoneyCalculatorDisplay display;
+    public final MoneyCalculatorDisplay display;
 
     public MainFrame(){
         setTitle("Money Calculator");

@@ -9,8 +9,11 @@ import java.awt.event.ActionListener;
 import java.util.List;
 
 public class MoneyCalculatorDisplay extends JPanel implements CalculatorDisplay{
-    private JButton button;
-    private JLabel result;
+    private final JButton button = new JButton("Calcualte");
+    private JComboBox<Currency> fromCurrency;
+    private JComboBox<Currency> toCurrency;
+    private JTextField amount;
+    private JLabel resultLabel;
 
 
     public void display(List<Currency> currencies) {
@@ -24,16 +27,14 @@ public class MoneyCalculatorDisplay extends JPanel implements CalculatorDisplay{
     private JPanel displayComponents(List<Currency> currencies) {
         JLabel fromLabel = CreateCenterLabel("From Currency: ");
         JLabel toLabel = CreateCenterLabel("To Currency: ");
-        result = CreateCenterLabel("Result: ");
+        resultLabel = new JLabel("Result: ");
 
-        JTextField amount = new JTextField();
+        amount = new JTextField();
 
-        JComboBox<Currency> fromCurrency = createSelector(currencies);
-        JComboBox<Currency> toCurrency = createSelector(currencies);
+        fromCurrency = createSelector(currencies);
+        toCurrency = createSelector(currencies);
 
-        result.setFont(new Font("Arial", Font.BOLD, 20));
-
-        button = new JButton("Calculate");
+        resultLabel.setFont(new Font("Arial", Font.BOLD, 20));
 
         JPanel jPanel = new JPanel();
         jPanel.setLayout(new BoxLayout(jPanel, BoxLayout.Y_AXIS));
@@ -43,7 +44,7 @@ public class MoneyCalculatorDisplay extends JPanel implements CalculatorDisplay{
         jPanel.add(toLabel);
         jPanel.add(toCurrency);
         jPanel.add(button);
-        jPanel.add(result);
+        jPanel.add(resultLabel);
 
         return jPanel;
     }
@@ -62,5 +63,21 @@ public class MoneyCalculatorDisplay extends JPanel implements CalculatorDisplay{
 
     public void calculate(ActionListener listener){
         button.addActionListener(listener);
+    }
+
+    public String getAmount() {
+        return amount.getText();
+    }
+
+    public String getFromCurrency() {
+        return fromCurrency.getSelectedItem().toString();
+    }
+
+    public String getToCurrency() {
+        return toCurrency.getSelectedItem().toString();
+    }
+
+    public void setResult(String result) {
+        resultLabel.setText("Result: " + result);
     }
 }
